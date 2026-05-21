@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SPAYD QR dekodér</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>SPAYD QR dekodér</h1>
+    <p class="subtitle">Naskenuj nebo nahraj český platební QR kód</p>
+  </header>
+
+  <main>
+    <section class="source-switch" role="tablist" aria-label="Zdroj QR kódu">
+      <button id="tab-camera" class="tab active" role="tab" aria-selected="true">Kamera</button>
+      <button id="tab-upload" class="tab" role="tab" aria-selected="false">Nahrát obrázek</button>
+    </section>
+
+    <section id="panel-camera" class="panel">
+      <div class="camera-wrap">
+        <video id="video" playsinline></video>
+        <canvas id="camera-canvas" hidden></canvas>
+      </div>
+      <div class="camera-controls">
+        <button id="btn-start" class="btn primary">Spustit kameru</button>
+        <button id="btn-stop" class="btn" hidden>Zastavit</button>
+      </div>
+      <p id="camera-status" class="status" role="status"></p>
+    </section>
+
+    <section id="panel-upload" class="panel" hidden>
+      <label id="drop-zone" class="drop-zone" for="file-input">
+        <span>Přetáhni sem obrázek nebo klikni pro výběr</span>
+        <input id="file-input" type="file" accept="image/*" hidden>
+      </label>
+      <p id="upload-status" class="status" role="status"></p>
+    </section>
+
+    <section id="result-section" class="result-section" hidden>
+      <h2>Platební údaje</h2>
+      <div id="result-fields" class="fields"></div>
+
+      <details class="raw">
+        <summary>Surový SPAYD řetězec</summary>
+        <div class="field-card raw-card">
+          <code id="raw-spayd"></code>
+          <button class="btn copy" data-copy-target="raw-spayd">Kopírovat</button>
+        </div>
+      </details>
+
+      <button id="btn-reset" class="btn">Skenovat další</button>
+    </section>
+
+    <section id="error-section" class="error" hidden></section>
+  </main>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <footer>
+    <p>Vše běží lokálně v prohlížeči. Knihovna <a href="https://github.com/cozmo/jsQR" target="_blank" rel="noopener">jsQR</a> přes CDN.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
